@@ -1,0 +1,123 @@
+.flex {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+  column-gap: 20px;
+  row-gap: 30px;
+}
+.container {
+  max-width: 1250px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.logo-block {
+  text-align: center;
+}
+
+header {
+  background-color: white;
+  color: #fff;
+  padding: 10px 0;
+}
+
+footer {
+  margin-top: 30px;
+  background-color: white;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+}
+.htext {
+  color: #1c1e23;
+  font-family: Poppins;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 36px; /* 120% */
+}
+.ftext {
+  color: #333;
+}
+.title-main {
+  color: #1c1e23;
+  font-family: Poppins;
+  font-size: 30px;
+  margin-bottom: 60px;
+  text-align: center;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 36px; /* 120% */
+}
+.ftext-description {
+  color: #525f7f;
+  text-align: center;
+  font-family: Poppins;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 166.667% */
+}
+
+.product {
+  max-width: 400px;
+  width: 100%;
+}
+.title {
+  color: blue;
+  margin-left: auto;
+  color: #489dff;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 150% */
+}
+.name {
+  color: var(--almost-black, #333);
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.2px;
+}
+.butt {
+  display: inline-flex;
+  height: 48px;
+  padding: 16px 50px;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 7px;
+  background: var(--color--primary, #489dff);
+  color: #fff;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 16px; /* 106.667% */
+  border: none;
+}
+.hrf {
+  margin-top: 50px;
+}
+.hrh {
+  margin-bottom: 50px;
+}
+.img-block img {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 7px;
+}
+.social-links {
+  max-width: 130px;
+  width: 100%;
+  display: flex;
+  column-gap: 8px;
+  margin-left: auto;
+  margin-right: auto;
+}
