@@ -25,10 +25,20 @@ export const TicTacToe = () => {
   let [count, setCount] = useState(0);
   let [lock, setLock] = useState(false);
   let winnerName = useRef(null);
+  
+  let myArr = useRef(null)
+  let myArr1 = useRef(null)
+  let myArr2 = useRef(null)
+  let myArr3 = useRef(null) 
+  let myArr4 = useRef(null)
+  let myArr5 = useRef(null)
+  let myArr6 = useRef(null) 
+  let myArr7 = useRef(null) 
+  let myArr8 = useRef(null);
 
+  let myArray = [myArr, myArr1, myArr2, myArr3, myArr4, myArr5, myArr6, myArr7, myArr8];
 
-
-
+  
   
   const myFunc = (elm, num) => {
     if (lock) return 0;
@@ -71,6 +81,9 @@ export const TicTacToe = () => {
     setLock(false)
     let data = ["", "", "", "", "", "", "", "", ""];
     winnerName.current.innerHTML = ""
+    myArray.map((e) => { 
+       e.current.innerHTML = "";
+    });
   }
 
   return (
@@ -81,19 +94,19 @@ export const TicTacToe = () => {
       <h3 className='name3' ref={winnerName}></h3>
       <div className='gameBoard'>
         <div className='row1'>
-          <div className='column' onClick={(e) => {myFunc(e, 0)}}></div>
-          <div className='column' onClick={(e) => {myFunc(e, 1)}}></div>
-          <div className='column' onClick={(e) => {myFunc(e, 2)}}></div>
+          <div className='column' ref={myArr} onClick={(e) => {myFunc(e, 0)}}></div>
+          <div className='column' ref={myArr1} onClick={(e) => {myFunc(e, 1)}}></div>
+          <div className='column' ref={myArr2} onClick={(e) => {myFunc(e, 2)}}></div>
         </div>
         <div className='row2'>
-          <div className='column' onClick={(e) => {myFunc(e, 3)}}></div>
-          <div className='column' onClick={(e) => {myFunc(e, 4)}}></div>
-          <div className='column' onClick={(e) => {myFunc(e, 5)}}></div>
+          <div className='column' ref={myArr3} onClick={(e) => {myFunc(e, 3)}}></div>
+          <div className='column' ref={myArr4} onClick={(e) => {myFunc(e, 4)}}></div>
+          <div className='column' ref={myArr5} onClick={(e) => {myFunc(e, 5)}}></div>
         </div>
         <div className='row2'>
-          <div className='column' onClick={(e) => {myFunc(e, 6)}}></div>
-          <div className='column' onClick={(e) => {myFunc(e, 7)}}></div>
-          <div className='column' onClick={(e) => {myFunc(e, 8)}}></div>
+          <div className='column' ref={myArr6} onClick={(e) => {myFunc(e, 6)}}></div>
+          <div className='column' ref={myArr7} onClick={(e) => {myFunc(e, 7)}}></div>
+          <div className='column' ref={myArr8} onClick={(e) => {myFunc(e, 8)}}></div>
         </div>
       </div>
       <button className='refresh' onClick={() => {refresh()}}>
