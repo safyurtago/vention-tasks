@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Safyur's weather app</title>
+</head>
+<body>
+  <div class="container">
+    <div class="search">
+      <input type="text" placeholder="Enter City Name">
+      <button><img class="isearch" src="./images/search.png" alt="Weather"></button>
+    </div>
+    <div class="weather">
+      <img src="./images/rain.png" class="icon" alt="">
+      <h1 class="celcy">900°c</h1>
+      <h2 class="city">Nowhere</h2>
+      <div class="detail">
+        <div class="col">
+          <img src="./images/humidity.png" alt="">
+          <div class="humidity">
+            <p class="humid">50%</p>
+            <p>Humidity</p>
+          </div>
+        </div>
+        <div class="col">
+          <img src="./images/wind.png" alt="">
+          <div class="wind">
+            <p class="speed">100km/h</p>
+            <p>Wind</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const input = document.querySelector('.search input');
+    const btn = document.querySelector('.search button');
+    const image = document.querySelector('.icon')
+
+    const getWeather = async (city) => {
+      let data = await (await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=13bc24cb57a897c40d2b636cf3ef8421&units=metric`)).json();
+      document.querySelector('.celcy').innerHTML = Math.round(data.main.temp) + "°c";
+      document.querySelector('.city').innerHTML = data.name;
+      document.querySelector('.humid').innerHTML = Math.round(data.main.humidity) + " %";
+      document.querySelector('.speed').innerHTML = Math.round(data.wind.speed) + " km/h";
+      
+      if (data.weather[0].main == 'Clouds') image.src = "./images/clouds.png"
+      else if (data.weather[0].main == 'Clear') image.src = "./images/clear.png"
+      else if (data.weather[0].main == 'Rain') image.src = "./images/rain.png.png"
+      else if (data.weather[0].main == 'Drizzle') image.src = "./images/drizzle.png"
+      else if (data.weather[0].main == 'Mist') image.src = "./images/mist.png"
+      else if (data.weather[0].main == 'Snow') image.src = "./images/snow.png"
+    
+    }
+    btn.addEventListener('click', () => {
+      getWeather(input.value)
+    })
+  </script>
+</body>
+</html>
