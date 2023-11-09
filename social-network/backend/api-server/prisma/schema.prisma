@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                   String   @id @default(uuid())
+  first_name           String
+  last_name            String
+  username             String   @unique
+  email                String   @unique
+  phone_number         String
+  hashed_password      String
+  hashed_refresh_token String?
+  photo_url            String?
+  is_active            Boolean? @default(false)
+  activation_link      String?
+
+  userfriends       UserFriend[] @relation(name: "user-friends")
+  friends           UserFriend[] @relation(name: "friends")
+  posts             Post[]
+  sender_messages   Message[]    @relation(name: "sender")
+  receiver_messages Message[]    @relation(name: "receiver")
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("user")
+}
+
+model Message {
+  id         String @id @default(uuid())
+  senderId   String
+  sender     User   @relation(name: "sender", fields: [senderId], references: [id])
+  receiverId String
+  receiver   User   @relation(name: "receiver", fields: [receiverId], references: [id])
+  content    String
+  is_seen Boolean? @default(false)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("message")
+}
+
+model Post {
+  id          String @id @default(uuid())
+  title       String
+  description String
+  userId      String
+  user        User   @relation(fields: [userId], references: [id])
+  is_active Boolean? @default(true)
+  views Int? @default(0)
+  photo String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("post")
+}
+
+model UserFriend {
+  id       String @id @default(uuid())
+  userId   String
+  user     User   @relation(name: "user-friends", fields: [userId], references: [id])
+  friendId String
+  friend   User   @relation(name: "friends", fields: [friendId], references: [id])
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("user_friend")
+}
