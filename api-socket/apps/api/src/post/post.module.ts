@@ -7,8 +7,7 @@ import { FileModule } from '../../../../libs/common/src/file/file.module';
 import { UserGuard } from '../../../../libs/common/guards/user.guard';
 import { MessageModule } from '../../../message/src/message.module';
 import { MessageService } from '../../../message/src/message.service';
-import { RmqModule } from '../../../../libs/common/src';
-import { MESSAGE_SERVICE } from '../constants/services';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
@@ -16,9 +15,6 @@ import { MESSAGE_SERVICE } from '../constants/services';
     JwtModule.register({}),
     FileModule,
     MessageModule,
-    RmqModule.register({
-      name: MESSAGE_SERVICE,
-    })
   ],
   controllers: [PostController],
   providers: [PostService, UserGuard, MessageService],

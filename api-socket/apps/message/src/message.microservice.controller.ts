@@ -12,12 +12,7 @@ export class MessageMicroserviceController {
   constructor(private readonly messageService: MessageService) {}
 
   @EventPattern('post_created')
-  createdPost(@Body() createMessageDto: CreateMessageDto, @Req() req: Request) {
-    return this.messageService.create(createMessageDto, req);
-  }
-
-  @EventPattern('friend_added')
-  addedFriend(@Body() createMessageDto: CreateMessageDto, @Req() req: Request) {
+  create(@Body() createMessageDto: CreateMessageDto, @Req() req: Request) {
     return this.messageService.create(createMessageDto, req);
   }
 }

@@ -3,9 +3,7 @@ import { MessageController } from './message.controller';
 import { MessageService } from './message.service';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from '../../../libs/common/src/prisma/prisma.module';
-import { RmqModule } from '../../../libs/common/src';
 import { JwtModule } from '@nestjs/jwt';
-import { PostModule } from '../../api/src/post/post.module';
 import { MessageMicroserviceController } from './message.microservice.controller';
 
 @Module({
@@ -14,10 +12,9 @@ import { MessageMicroserviceController } from './message.microservice.controller
       isGlobal: true,
     }),
     PrismaModule,
-    RmqModule,
     JwtModule.register({}),
   ],
-  controllers: [MessageController, MessageMicroserviceController],
-  providers: [MessageService],
+  controllers: [MessageController],
+  providers: [MessageService, MessageMicroserviceController],
 })
 export class MessageModule {}

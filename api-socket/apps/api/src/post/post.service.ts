@@ -9,6 +9,7 @@ import { MessageService } from '../../../message/src/message.service';
 import { MESSAGE_SERVICE } from '../constants/services';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
+import { CreateMessageDto } from '../../../message/src/dto/create-message.dto';
 
 @Injectable()
 export class PostService {
@@ -35,13 +36,14 @@ export class PostService {
 
     const content = `${user.username} has just posted a new post`;
     userfriends.forEach(async (friend) => {
-      await this.messageService.createMessage(content, userId, friend.friendId);
+      const data: CreateMessageDto = {content, receiverId: friend.friendId}
+      // await this.messageService.createMessage(content, userId, friend.friendId);
+      await lastValueFrom(
+        await this.messageClient.emit('post_created', {
+          data,
+        }),
+      )
     })
-    await lastValueFrom(
-      this.messageClient.emit('post_created', {
-        post,
-      }),
-    )
     return post;
   }
 

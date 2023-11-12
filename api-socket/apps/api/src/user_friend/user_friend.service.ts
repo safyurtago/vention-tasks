@@ -2,15 +2,11 @@ import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { CreateUserFriendDto } from './dto/create-user_friend.dto';
 import { Request } from 'express';
 import { PrismaService } from '../../../../libs/common/src/prisma/prisma.service';
-import { ClientProxy } from '@nestjs/microservices';
-import { MESSAGE_SERVICE } from '../constants/services';
-import { lastValueFrom } from 'rxjs';
 
 @Injectable()
 export class UserFriendService {
   constructor (
     private readonly prismaService: PrismaService,
-    @Inject(MESSAGE_SERVICE) private messageClient: ClientProxy,
   ) {}
 
   async create(createUserFriendDto: CreateUserFriendDto, req: Request) {
@@ -23,12 +19,7 @@ export class UserFriendService {
     if (!friend) { throw new BadRequestException("Friend not found");};
     const content = `${user.username} has just added you to his/her friend list`
     await this.prismaService.message.create({data: {senderId: userId, receiverId: friendId, content}})
-    const data = await this.prismaService.userFriend.create({data: {friendId, userId}});
-    await lastValueFrom(
-      this.messageClient.emit('friend_added', {
-        data,
-      }),
-    )
+    const data = await this.prismaService.userFriend.create({data: {friendId, userId}})
     return data;
   }
 
